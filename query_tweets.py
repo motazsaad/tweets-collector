@@ -1,6 +1,4 @@
-import csv
 import os
-import sys
 import time
 import json
 from nltk.twitter import Query, credsfromfile, TweetWriter
@@ -15,8 +13,10 @@ help='the output json file path and prefix.', required=True)
 parser.add_argument('-n', '--number', type=int,
 help='the number of tweets that you want to collect', required=True)
 
-cwd = os.getcwd()
-os.environ["TWITTER"] = cwd + os.path.sep + "twitter-files" # set environmental variable
+#cwd = os.getcwd()
+# set environmental variable
+current_dir = os.path.dirname(os.path.realpath(__file__))
+os.environ["TWITTER"] = current_dir + os.path.sep + "twitter-files"
 
 
 def dump_tweets(tweets, my_keyword, json_out_path_prefix):
