@@ -1,6 +1,7 @@
 import json
 import argparse
 import os
+import sys
 
 parser = argparse.ArgumentParser(description='extract tweet texts from json')
 parser.add_argument('-i', '--json-dir', type=str,
@@ -21,10 +22,14 @@ def extract_tweets_from_json(json_reader, text_writer):
                 text_writer.write("\n")
         except json.decoder.JSONDecodeError as error:
             pass
+        except UnicodeDecodeError as error:
+            pass
 
 
 def extract_tweets_from_json_files(json_dir, text_dir):
     for json_file in os.listdir(json_dir):
+        if json_file.startswith('.'):
+            continue
         json_file = os.path.join(json_dir, json_file)
         filename, ext = os.path.splitext(json_file)
         text_file = os.path.join(text_dir, os.path.basename(filename) + '.txt')
@@ -39,4 +44,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     json_dir = args.json_dir
     out_dir = args.out_dir
+    if json_dir == out_dir:
+        print('error: input and output directories can not be the same')
+        sys.exit(-1)
     extract_tweets_from_json_files(json_dir, out_dir)
