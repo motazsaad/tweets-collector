@@ -43,15 +43,15 @@ optional arguments:
 ## json2text.py Usage
  
 ```
-usage: json2text.py [-h] --json-file JSON_FILE -o OUTFILE
+usage: json2text.py [-h] -i JSON_DIR -o OUT_DIR
 
 extract tweet texts from json
 
 optional arguments:
   -h, --help            show this help message and exit
-  --json-file JSON_FILE
-                        tweets json file
-  -o OUTFILE, --outfile OUTFILE
-                        the output file.
+  -i JSON_DIR, --json-dir JSON_DIR
+                        tweets json directory
+  -o OUT_DIR, --out-dir OUT_DIR
+                        the output directory.
 
 ```
