@@ -1,2 +1,4 @@
 twython
 nltk
+tweet-preprocessor
+alphabet-detector
