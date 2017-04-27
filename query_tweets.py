@@ -1,19 +1,20 @@
+import argparse
+import json
 import os
 import time
-import json
-from nltk.twitter import Query, credsfromfile, TweetWriter
-import argparse
 
+from nltk.twitter import Query, credsfromfile
 
 parser = argparse.ArgumentParser(description='collect tweets based on keywords')
 parser.add_argument('-k', '--keywords-file', type=argparse.FileType(mode='r', encoding='utf-8'),
-help='keywords or hashtags file. The file should contain one keyword/hashtag per line', required=True)
+                    help='keywords or hashtags file. The file should contain one keyword/hashtag per line',
+                    required=True)
 parser.add_argument('-o', '--outfile', type=str,
-help='the output json file path and prefix.', required=True)
+                    help='the output json file path and prefix.', required=True)
 parser.add_argument('-n', '--number', type=int,
-help='the number of tweets that you want to collect', required=True)
+                    help='the number of tweets that you want to collect', required=True)
 
-#cwd = os.getcwd()
+# cwd = os.getcwd()
 # set environmental variable
 current_dir = os.path.dirname(os.path.realpath(__file__))
 os.environ["TWITTER"] = current_dir + os.path.sep + "twitter-files"
@@ -50,6 +51,7 @@ def collect_tweets(my_keyword, outfile_name, stop_num):
     tweets = client.search_tweets(keywords=my_keyword, limit=stop_num, lang='ar')
     dump_tweets(tweets, my_keyword, outfile_name)
 
+
 if __name__ == '__main__':
     args = parser.parse_args()
     queries = args.keywords_file.read().splitlines()
@@ -57,4 +59,3 @@ if __name__ == '__main__':
     number = args.number
     for query in queries:
         collect_tweets(my_keyword=query, outfile_name=outfile, stop_num=number)
-
