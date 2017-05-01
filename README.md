@@ -17,7 +17,7 @@ Collection can be based on hashtags or keywords.
 3. Then go to **keys and access management** tab 
 ![app keys](png/twitter_app3.png)
 
-4. put these info in [credentials.txt](twitter-files/credentials.txt) and in [api_keys.ps](api_keys.py) files.
+4. put these info in [credentials.txt](twitter-files/credentials.txt) and in [api_keys.py](api_keys.py) files.
 
 
 ## query_tweets.py Usage
