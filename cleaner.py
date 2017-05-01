@@ -74,6 +74,7 @@ def clean_tweet(tweet):
     tweet = remove_diacritics(tweet)
     tweet = remove_repeating_char(tweet)
     tweet = normalize_arabic(tweet)
+    tweet = tweet.replace("\n", " ").strip()
     tokens = tokenize(tweet)
     tokens = [token if emoticon_re.search(token) else token for token in tokens]
     ad = AlphabetDetector()

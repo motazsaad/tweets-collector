@@ -3,6 +3,8 @@ import json
 import os
 import sys
 
+import cleaner
+
 parser = argparse.ArgumentParser(description='extract tweet texts from json')
 parser.add_argument('-i', '--json-dir', type=str,
                     help='tweets json directory', required=True)
@@ -15,9 +17,10 @@ def extract_tweets_from_json(json_reader, text_writer):
     for json_tweet in json_tweets:
         try:
             if json_tweets:
-                tweet = json.loads(json_tweet)  # load it as Python dict
+                # load it as Python dict
+                tweet = json.loads(json_tweet)
                 text = tweet['text']
-                text = text.replace("\n", " ").strip()
+                text = cleaner.clean_tweet(text)
                 text_writer.write(text)
                 text_writer.write("\n")
         except json.decoder.JSONDecodeError as error:

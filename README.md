@@ -17,7 +17,8 @@ Collection can be based on hashtags or keywords.
 3. Then go to **keys and access management** tab 
 ![app keys](png/twitter_app3.png)
 
-4. put these info in [credentials.txt](twitter-files/credentials.txt) file.
+4. put these info in [credentials.txt](twitter-files/credentials.txt) and in [api_keys.ps](api_keys.py) files.
+
 
 ## query_tweets.py Usage
 
@@ -53,5 +54,26 @@ optional arguments:
                         tweets json directory
   -o OUT_DIR, --out-dir OUT_DIR
                         the output directory.
+
+```
+
+
+## stream_geolocation.py Usage 
+
+```
+usage: stream_geolocation.py [-h] -l GEO_LOCATIONS -j JSON -n NUMBER
+
+collect tweets based on geographic location
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l GEO_LOCATIONS, --geo-locations GEO_LOCATIONS
+                        geo location coordinates from
+                        http://boundingbox.klokantech.com copy and past using 
+                        csv option
+  -j JSON, --json JSON  the the json output file.
+  -n NUMBER, --number NUMBER
+                        the number of tweets that you want to collect
+
 
 ```
