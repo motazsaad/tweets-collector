@@ -60,6 +60,7 @@ optional arguments:
 
 ## stream_geolocation.py Usage 
 
+Get Geo locations from [http://boundingbox.klokantech.com/](http://boundingbox.klokantech.com/)
 ```
 usage: stream_geolocation.py [-h] -l GEO_LOCATIONS -j JSON -n NUMBER
 
@@ -75,5 +76,25 @@ optional arguments:
   -n NUMBER, --number NUMBER
                         the number of tweets that you want to collect
 
+
+```
+
+
+## stream_users.py Usage 
+
+Get users id from [https://tweeterid.com](https://tweeterid.com)
+
+```
+usage: stream_users.py [-h] -u USERS -j JSON -n NUMBER
+
+collect tweets based on following twitter users
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u USERS, --users USERS
+                        twitter user ids file. Get ids from tweeterid.com
+  -j JSON, --json JSON  the the json output file.
+  -n NUMBER, --number NUMBER
+                        the number of tweets that you want to collect
 
 ```
