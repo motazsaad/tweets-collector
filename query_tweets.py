@@ -48,7 +48,7 @@ def collect_tweets(my_keyword, outfile_name, stop_num):
     print('finding tweets with {} keyword'.format(my_keyword))
     oauth = credsfromfile()
     client = Query(**oauth)
-    tweets = client.search_tweets(keywords=my_keyword, limit=stop_num, lang='ar')
+    tweets = client.search_tweets(keywords=my_keyword, limit=stop_num)
     dump_tweets(tweets, my_keyword, outfile_name)
 
 
