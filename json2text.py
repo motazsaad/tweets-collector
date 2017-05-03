@@ -10,33 +10,44 @@ parser.add_argument('-i', '--json-dir', type=str,
                     help='tweets json directory', required=True)
 parser.add_argument('-o', '--out-dir', type=str,
                     help='the output directory.', required=True)
-parser.add_argument('--exclude-redundant', type=str,
+parser.add_argument('--exclude-redundant',
                     help='exclude redundant tweets', action='store_true')
+parser.add_argument('--include-id',
+                    help='include tweet id', action='store_true')
 
 
 def extract_tweets_from_json(json_reader, text_writer):
     json_tweets = json_reader.readlines()
     print('tweets in json file: {} tweets'.format(len(json_tweets)))
     tweets_list = list()
+    extracted_tweets_count = 0
     for json_tweet in json_tweets:
         try:
             if json_tweets:
                 # load it as Python dict
                 tweet = json.loads(json_tweet)
+                tid = tweet['id']
                 text = tweet['text']
                 text = cleaner.clean_tweet(text)
                 if args.exclude_redundant:
                     if text not in tweets_list:
                         tweets_list.append(text)
-                        text_writer.write(text)
-                        text_writer.write("\n")
+                        if args.include_id:
+                            text_writer.write(tid + "\t" + text + "\n")
+                        else:
+                            text_writer.write(text + "\n")
+                        extracted_tweets_count += 1
                 else:
-                    text_writer.write(text)
-                    text_writer.write("\n")
+                    if args.include_id:
+                        text_writer.write(tid + "\t" + text + "\n")
+                    else:
+                        text_writer.write(text + "\n")
+                    extracted_tweets_count += 1
         except json.decoder.JSONDecodeError as error:
             pass
         except UnicodeDecodeError as error:
             pass
+    print('extracted tweets: {} tweets'.format(extracted_tweets_count))
 
 
 def extract_tweets_from_json_files(json_dir, text_dir):
