@@ -10,10 +10,13 @@ parser.add_argument('-i', '--json-dir', type=str,
                     help='tweets json directory', required=True)
 parser.add_argument('-o', '--out-dir', type=str,
                     help='the output directory.', required=True)
+parser.add_argument('--exclude-redundant', type=str,
+                    help='exclude redundant tweets', action='store_true')
 
 
 def extract_tweets_from_json(json_reader, text_writer):
     json_tweets = json_reader.readlines()
+    tweets_list = list()
     for json_tweet in json_tweets:
         try:
             if json_tweets:
@@ -21,8 +24,14 @@ def extract_tweets_from_json(json_reader, text_writer):
                 tweet = json.loads(json_tweet)
                 text = tweet['text']
                 text = cleaner.clean_tweet(text)
-                text_writer.write(text)
-                text_writer.write("\n")
+                if args.exclude_redundant:
+                    if text not in tweets_list:
+                        tweets_list.append(text)
+                        text_writer.write(text)
+                        text_writer.write("\n")
+                else:
+                    text_writer.write(text)
+                    text_writer.write("\n")
         except json.decoder.JSONDecodeError as error:
             pass
         except UnicodeDecodeError as error:

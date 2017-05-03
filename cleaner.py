@@ -63,13 +63,14 @@ def remove_repeating_char(text):
 
 
 def clean_tweet(tweet):
-    tweet = tweet.lower()
+    ad = AlphabetDetector()
     tweet_processor.set_options(tweet_processor.OPT.URL,
                                 tweet_processor.OPT.MENTION,
                                 tweet_processor.OPT.HASHTAG,
                                 tweet_processor.OPT.RESERVED,
                                 tweet_processor.OPT.NUMBER
                                 )
+    tweet = tweet.lower()
     tweet = tweet_processor.clean(tweet)
     tweet = remove_diacritics(tweet)
     tweet = remove_repeating_char(tweet)
@@ -77,7 +78,6 @@ def clean_tweet(tweet):
     tweet = tweet.replace("\n", " ").strip()
     tokens = tokenize(tweet)
     tokens = [token if emoticon_re.search(token) else token for token in tokens]
-    ad = AlphabetDetector()
     tokens = [token for token in tokens if ad.is_arabic(token)]
     return ' '.join(tokens)
 
