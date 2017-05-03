@@ -16,6 +16,7 @@ parser.add_argument('--exclude-redundant', type=str,
 
 def extract_tweets_from_json(json_reader, text_writer):
     json_tweets = json_reader.readlines()
+    print('tweets in json file: {} tweets'.format(len(json_tweets)))
     tweets_list = list()
     for json_tweet in json_tweets:
         try:
