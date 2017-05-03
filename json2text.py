@@ -33,13 +33,13 @@ def extract_tweets_from_json(json_reader, text_writer):
                     if text not in tweets_list:
                         tweets_list.append(text)
                         if args.include_id:
-                            text_writer.write(tid + "\t" + text + "\n")
+                            text_writer.write(str(tid) + "\t" + text + "\n")
                         else:
                             text_writer.write(text + "\n")
                         extracted_tweets_count += 1
                 else:
                     if args.include_id:
-                        text_writer.write(tid + "\t" + text + "\n")
+                        text_writer.write(str(tid) + "\t" + text + "\n")
                     else:
                         text_writer.write(text + "\n")
                     extracted_tweets_count += 1
