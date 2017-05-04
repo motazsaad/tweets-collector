@@ -30,7 +30,7 @@ def login():
 
 def get_tweets(my_locations, outfile, stop_num):
     auth, api = login()
-    twitter_stream = Stream(auth, MyListener(my_locations, outfile, stop_num))
+    twitter_stream = Stream(auth, MyListener(outfile, stop_num))
     # Bounding boxes for geo-locations
     # http://boundingbox.klokantech.com/
     # Online-Tool to create boxes (c+p as raw CSV):
