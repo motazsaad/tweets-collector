@@ -72,6 +72,7 @@ def clean_tweet(tweet):
                                 )
     tweet = tweet.lower()
     tweet = tweet_processor.clean(tweet)
+    tweet = tweet.replace(" : ", " ")
     tweet = remove_diacritics(tweet)
     tweet = remove_repeating_char(tweet)
     tweet = normalize_arabic(tweet)
@@ -79,5 +80,7 @@ def clean_tweet(tweet):
     tokens = tokenize(tweet)
     tokens = [token if emoticon_re.search(token) else token for token in tokens]
     tokens = [token for token in tokens if ad.is_arabic(token)]
-    return ' '.join(tokens)
+    tweet = ' '.join(tokens)
+    tweet = tweet.replace("/ ", " ")
+    return tweet
 

@@ -21,28 +21,35 @@ def extract_tweets_from_json(json_reader, text_writer):
     print('tweets in json file: {} tweets'.format(len(json_tweets)))
     tweets_list = list()
     extracted_tweets_count = 0
+    if args.include_id:
+        text_writer.write("id\ttweet\n")
     for json_tweet in json_tweets:
         try:
             if json_tweets:
                 # load it as Python dict
                 tweet = json.loads(json_tweet)
-                tid = tweet['id']
+                tid = tweet['id_str']
                 text = tweet['text']
                 text = cleaner.clean_tweet(text)
-                if args.exclude_redundant:
-                    if text not in tweets_list:
-                        tweets_list.append(text)
+                if len(text.split()) > 2:
+                    if args.exclude_redundant:
+                        if text not in tweets_list:
+                            tweets_list.append(text)
+                            if args.include_id:
+                                text_writer.write(str(tid) + "\t" + text + "\n")
+                                # print('id:{}'.format(str(tid)))
+                                # print('text:', text)
+                                # print('tweet:', tweet['text'])
+                                # input("press any key...")
+                            else:
+                                text_writer.write(text + "\n")
+                            extracted_tweets_count += 1
+                    else:
                         if args.include_id:
                             text_writer.write(str(tid) + "\t" + text + "\n")
                         else:
                             text_writer.write(text + "\n")
                         extracted_tweets_count += 1
-                else:
-                    if args.include_id:
-                        text_writer.write(str(tid) + "\t" + text + "\n")
-                    else:
-                        text_writer.write(text + "\n")
-                    extracted_tweets_count += 1
         except json.decoder.JSONDecodeError as error:
             pass
         except UnicodeDecodeError as error:
