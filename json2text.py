@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-import cleaner
+import tweet_cleaner
 
 parser = argparse.ArgumentParser(description='extract tweet texts from json')
 parser.add_argument('-i', '--json-dir', type=str,
@@ -14,6 +14,10 @@ parser.add_argument('--exclude-redundant',
                     help='exclude redundant tweets', action='store_true')
 parser.add_argument('--include-id',
                     help='include tweet id', action='store_true')
+parser.add_argument('-n', '--normalize',
+                    help='normalize text', action='store_true')
+parser.add_argument('--remove-repeated-letters',
+                    help='removed repeated letters (+2 consecutive) from text', action='store_true')
 
 
 def extract_tweets_from_json(json_reader, text_writer):
@@ -30,7 +34,11 @@ def extract_tweets_from_json(json_reader, text_writer):
                 tweet = json.loads(json_tweet)
                 tid = tweet['id_str']
                 text = tweet['text']
-                text = cleaner.clean_tweet(text)
+                text = tweet_cleaner.clean_tweet(text)
+                if args.normalize:
+                    text = tweet_cleaner.normalize_arabic(text)
+                if args.remove_repeated_letters:
+                    text = tweet_cleaner.remove_diacritics(text)
                 if len(text.split()) > 2:
                     if args.exclude_redundant:
                         if text not in tweets_list:

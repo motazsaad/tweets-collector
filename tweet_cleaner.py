@@ -59,7 +59,8 @@ def remove_diacritics(text):
 
 
 def remove_repeating_char(text):
-    return re.sub(r'(.)\1+', r'\1', text)
+    # return re.sub(r'(.)\1+', r'\1', text)     # keep only 1 repeat
+    return re.sub(r'(.)\1+', r'\1\1', text)     # keep 2 repeat
 
 
 def clean_tweet(tweet):
@@ -74,8 +75,6 @@ def clean_tweet(tweet):
     tweet = tweet_processor.clean(tweet)
     tweet = tweet.replace(" : ", " ")
     tweet = remove_diacritics(tweet)
-    tweet = remove_repeating_char(tweet)
-    tweet = normalize_arabic(tweet)
     tweet = tweet.replace("\n", " ").strip()
     tokens = tokenize(tweet)
     tokens = [token if emoticon_re.search(token) else token for token in tokens]
