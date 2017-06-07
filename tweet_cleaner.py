@@ -3,7 +3,6 @@ import preprocessor as tweet_processor
 import re
 
 
-
 emoticons_str = r"""
     (?:
         [:=;] # Eyes
@@ -66,6 +65,25 @@ def remove_repeating_char(text):
 def remove_repeated_letters(word):
     # pre process
     return word
+
+
+def get_repeated_letters(text):
+    repeated_letters = list()
+    # find letters
+    for letter in text:
+        pass
+        # if letter is repeated :
+        # repeated_letters.append(letter)
+    repeated_letters = set(repeated_letters)
+    return repeated_letters
+
+
+def get_words(letter, words):
+    selected_words = list()
+    for word in words:
+        if letter in word:
+            selected_words.append(word)
+    return set(selected_words)
 
 
 def clean_tweet(tweet):
