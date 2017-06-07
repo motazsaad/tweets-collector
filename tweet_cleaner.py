@@ -44,10 +44,10 @@ def tokenize(s):
 
 
 def normalize_arabic(text):
-    text = re.sub("[إأآا]", "ا", text)
-    text = re.sub("ى", "ي", text)
-    text = re.sub("ؤ", "ء", text)
-    text = re.sub("ئ", "ء", text)
+    # text = re.sub("[إأآا]", "ا", text)
+    # text = re.sub("ى", "ي", text)
+    # text = re.sub("ؤ", "ء", text)
+    # text = re.sub("ئ", "ء", text)
     text = re.sub("ة", "ه", text)
     text = re.sub("گ", "ك", text)
     return text
