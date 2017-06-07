@@ -18,6 +18,8 @@ parser.add_argument('-n', '--normalize',
                     help='normalize text', action='store_true')
 parser.add_argument('--remove-repeated-letters',
                     help='removed repeated letters (+2 consecutive) from text', action='store_true')
+parser.add_argument('--keep-only-arabic',
+                    help='only keep Arabic words', action='store_true')
 
 
 def extract_tweets_from_json(json_reader, text_writer):
@@ -32,13 +34,15 @@ def extract_tweets_from_json(json_reader, text_writer):
             if json_tweets:
                 # load it as Python dict
                 tweet = json.loads(json_tweet)
-                tid = tweet['id_str']
+                tid = tweet['id']
                 text = tweet['text']
                 text = tweet_cleaner.clean_tweet(text)
                 if args.normalize:
                     text = tweet_cleaner.normalize_arabic(text)
                 if args.remove_repeated_letters:
-                    text = tweet_cleaner.remove_diacritics(text)
+                    text = tweet_cleaner.remove_repeating_char(text)
+                if args.keep_only_arabic:
+                    text = tweet_cleaner.keep_only_arabic(text.split())
                 if len(text.split()) > 2:
                     if args.exclude_redundant:
                         if text not in tweets_list:

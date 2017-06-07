@@ -43,6 +43,7 @@ def tokenize(s):
 
 
 def normalize_arabic(text):
+    text = remove_diacritics(text)
     # text = re.sub("[إأآا]", "ا", text)
     # text = re.sub("ى", "ي", text)
     # text = re.sub("ؤ", "ء", text)
@@ -86,8 +87,14 @@ def get_words(letter, words):
     return set(selected_words)
 
 
-def clean_tweet(tweet):
+def keep_only_arabic(words):
     ad = AlphabetDetector()
+    tokens = [token for token in words if ad.is_arabic(token)]
+    tweet = ' '.join(tokens)
+    return tweet
+
+
+def clean_tweet(tweet):
     tweet_processor.set_options(tweet_processor.OPT.URL,
                                 tweet_processor.OPT.MENTION,
                                 tweet_processor.OPT.HASHTAG,
@@ -97,11 +104,9 @@ def clean_tweet(tweet):
     tweet = tweet.lower()
     tweet = tweet_processor.clean(tweet)
     tweet = tweet.replace(" : ", " ")
-    tweet = remove_diacritics(tweet)
     tweet = tweet.replace("\n", " ").strip()
     tokens = tokenize(tweet)
     tokens = [token if emoticon_re.search(token) else token for token in tokens]
-    tokens = [token for token in tokens if ad.is_arabic(token)]
     tweet = ' '.join(tokens)
     tweet = tweet.replace("/ ", " ")
     return tweet

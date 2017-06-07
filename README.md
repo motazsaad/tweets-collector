@@ -44,7 +44,9 @@ optional arguments:
 ## json2text.py Usage
  
 ```
-usage: json2text.py [-h] -i JSON_DIR -o OUT_DIR
+usage: json2text.py [-h] -i JSON_DIR -o OUT_DIR [--exclude-redundant]
+                    [--include-id] [-n] [--remove-repeated-letters]
+                    [--keep-only-arabic]
 
 extract tweet texts from json
 
@@ -54,7 +56,12 @@ optional arguments:
                         tweets json directory
   -o OUT_DIR, --out-dir OUT_DIR
                         the output directory.
-
+  --exclude-redundant   exclude redundant tweets
+  --include-id          include tweet id
+  -n, --normalize       normalize text
+  --remove-repeated-letters
+                        removed repeated letters (+2 consecutive) from text
+  --keep-only-arabic    only keep Arabic words
 ```
 
 
