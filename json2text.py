@@ -31,7 +31,7 @@ def extract_tweets_from_json(json_reader, text_writer):
         text_writer.write("id\ttweet\n")
     for json_tweet in json_tweets:
         try:
-            if json_tweets:
+            if json_tweet:
                 # load it as Python dict
                 tweet = json.loads(json_tweet)
                 tid = tweet['id']
