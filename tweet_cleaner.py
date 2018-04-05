@@ -63,7 +63,7 @@ def remove_repeating_char(text):
     return re.sub(r'(.)\1+', r'\1\1', text)     # keep 2 repeat
 
 
-def remove_repeated_letters(word):
+def remove_repeated_letters(word): # to be implemented by Kathrien 
     # pre process
     return word
 
