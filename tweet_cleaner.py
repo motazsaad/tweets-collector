@@ -1,6 +1,9 @@
 from alphabet_detector import AlphabetDetector
 import preprocessor as tweet_processor
 import re
+from itertools import groupby
+
+rx = re.compile(r'(.)\1{1,}') # check if there is repeated consecutive characters more than once
 
 
 emoticons_str = r"""
@@ -62,10 +65,44 @@ def remove_repeating_char(text):
     # return re.sub(r'(.)\1+', r'\1', text)     # keep only 1 repeat
     return re.sub(r'(.)\1+', r'\1\1', text)     # keep 2 repeat
 
+##################################################
+# Implemented by Kathrien Abu Kwaik
+# Orignial implementation:
+# https://github.com/kathrein/Arabic-processing--repeated-characters/
 
-def remove_repeated_letters(word): # to be implemented by Kathrien 
-    # pre process
-    return word
+def special_match(char_to_ckh): # helper function 
+    repeated_characters = ['ب','ت','ل','ه','ر','م','ن','ص','ط','د','ف','ي','ه','خ']
+    return char_to_ckh in repeated_characters
+    
+def modify_str(modified_str, index, repeated_char): # help function 
+    if index == 0 and repeated_char =='و':
+        modified_str = modified_str +'و'+' ''و'
+    else :
+        if special_match(repeated_char):
+            modified_str = modified_str+(repeated_char*2)
+        else:
+            modified_str = modified_str+repeated_char
+    return modified_str
+
+def remove_repeated_letters(word): 
+    modified_str = ""
+    groups = groupby(word) 
+    result = [(label, sum(1 for _ in group)) for label, group in groups] # compute number of consecutive characters
+    rxx = rx.search(word)
+    if rxx: # if it contains sequential characters
+        index = 0 # to locate the repeated character
+        modified_str = modified_str+ ' '
+        for x,y in result:
+            if y > 1:
+                modified_str = modify_str(modified_str, index, x)
+            else:
+                modified_str = modified_str+ x # if the character has one apperance 
+            index = index +y
+    else: # if there is no repeated characters in the word 
+        modified_str = modified_str +' '+ word
+    return modified_str.strip()
+
+##################################################
 
 
 def get_repeated_letters(text):
