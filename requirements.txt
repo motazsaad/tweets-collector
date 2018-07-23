@@ -5,3 +5,4 @@ nltk
 tweet-preprocessor
 alphabet-detector
 tweepy
+argcomplete
