@@ -105,3 +105,9 @@ optional arguments:
                         the number of tweets that you want to collect
 
 ```
+## user_tweets_history.py Usage 
+get the most recent tweets of a user
+```
+usage: user_tweets_history.py [-h] -u USER
+```
+
