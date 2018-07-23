@@ -66,9 +66,8 @@ def remove_repeating_char(text):
     return re.sub(r'(.)\1+', r'\1\1', text)     # keep 2 repeat
 
 ##################################################
-# remove arabic repeated chars
 # Implemented by Kathrien Abu Kwaik
-# Orignial implementation is in:
+# Orignial implementation:
 # https://github.com/kathrein/Arabic-processing--repeated-characters/
 
 def special_match(char_to_ckh): # helper function 
