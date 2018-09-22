@@ -23,37 +23,37 @@ def get_all_tweets(screen_name):
     api = tweepy.API(auth)
 
     # initialize a list to hold all the tweepy Tweets
-    alltweets = []
+    all_tweets = []
 
     # make initial request for most recent tweets (200 is the maximum allowed count)
-    new_tweets = api.user_timeline(screen_name=screen_name, count=200)
+    new_tweets = api.user_timeline(screen_name=screen_name, count=200, tweet_mode='extended')
 
     # save most recent tweets
-    alltweets.extend(new_tweets)
+    all_tweets.extend(new_tweets)
 
     # save the id of the oldest tweet less one
-    oldest = alltweets[-1].id - 1
+    oldest = all_tweets[-1].id - 1
 
     # keep grabbing tweets until there are no tweets left to grab
     while len(new_tweets) > 0:
         print("getting tweets before {}".format(oldest))
 
         # all subsiquent requests use the max_id param to prevent duplicates
-        new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest)
+        new_tweets = api.user_timeline(screen_name=screen_name, count=200, max_id=oldest, tweet_mode='extended')
 
         # save most recent tweets
-        alltweets.extend(new_tweets)
+        all_tweets.extend(new_tweets)
 
         # update the id of the oldest tweet less one
-        oldest = alltweets[-1].id - 1
+        oldest = all_tweets[-1].id - 1
 
-    print("...{} tweets downloaded so far".format((len(alltweets))))
-    #print('all tweets\n', alltweets)
-    #print('first tweet:', alltweets[0])
+    print("...{} tweets downloaded so far".format((len(all_tweets))))
+    #print('all tweets\n', all_tweets)
+    #print('first tweet:', all_tweets[0])
     # transform the tweepy tweets into a 2D array that will populate the csv
-    outtweets = [[tweet.id_str, tweet.created_at.strftime('%m/%d/%Y'), tweet.text.encode("utf-8").decode('utf-8')] for tweet in alltweets]
+    outtweets = [[tweet.id_str, tweet.created_at.strftime('%m/%d/%Y'), tweet.text.encode("utf-8").decode('utf-8')] for tweet in all_tweets]
     outtweetsDict = [{'id': tweet.id_str, 'created_at': tweet.created_at.strftime('%m/%d/%Y'), 'text':  tweet.text.encode("utf-8").decode('utf-8')} for
-                 tweet in alltweets]
+                 tweet in all_tweets]
     #print('first outtweets:', outtweets[0])
 
     # write the csv
