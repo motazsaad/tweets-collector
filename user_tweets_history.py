@@ -9,6 +9,11 @@ import api_keys
 import xlsxwriter
 import tweet_cleaner
 import json
+import argparse
+
+parser = argparse.ArgumentParser(description='collect user tweets')
+parser.add_argument('-u', '--user', type=str,
+                    help='user', required=True)
 
 
 def get_all_tweets(screen_name):
@@ -92,5 +97,7 @@ def process_json(screen_name):
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
-    get_all_tweets("Motaz_K_Saad")
-    process_json("Motaz_K_Saad")
+    args = parser.parse_args()
+    user = args.user 
+    get_all_tweets(user)
+    process_json(user)
