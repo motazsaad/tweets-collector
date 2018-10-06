@@ -14,6 +14,8 @@ parser.add_argument('-o', '--outfile', type=argparse.FileType(mode='a', encoding
                     help='the output json file.', required=True)
 parser.add_argument('-n', '--number', type=int,
                     help='the number of tweets that you want to collect', required=True)
+parser.add_argument('-l', '--lang', type=str,
+                    help='language', required=True)
 
 # cwd = os.getcwd()
 # set environmental variable
@@ -38,12 +40,12 @@ def dump_tweets(tweets, json_writer):
         print('no tweets found')
 
 
-def collect_tweets(my_keyword, json_writer, stop_num):
+def collect_tweets(my_keyword, json_writer, stop_num, lang):
     my_keyword = my_keyword.strip()
     print('finding tweets with {} keyword'.format(my_keyword))
     oauth = credsfromfile()
     client = Query(**oauth)
-    tweets = client.search_tweets(keywords=my_keyword, limit=stop_num)
+    tweets = client.search_tweets(keywords=my_keyword, limit=stop_num, lang=lang)
     dump_tweets(tweets, json_writer)
 
 
@@ -53,5 +55,6 @@ if __name__ == '__main__':
     queries = args.keywords_file.read().splitlines()
     outfile = args.outfile
     number = args.number
+    lang = args.lang
     for query in queries:
-        collect_tweets(my_keyword=query, json_writer=outfile, stop_num=number)
+        collect_tweets(my_keyword=query, json_writer=outfile, stop_num=number, lang=lang)
