@@ -1,7 +1,7 @@
 # tweets-collector
 Collect tweets (tweets corpus) using Twitter API. 
 
-Collection can be based on hashtags or keywords.
+Collection can be based on hashtags, keywords, geographical location.
 
 ## install requirements 
 ```pip install -r requirements```
@@ -111,3 +111,9 @@ get the most recent tweets of a user
 usage: user_tweets_history.py [-h] -u USER
 ```
 
+
+## emoji list 
+positive/negative emoji list is obtained from https://emojipedia.org/ 
+
+## Sentiment Analysis in Arabic tweets
+Please check the article https://mksaad.wordpress.com/2018/12/07/sentiment-analysis-in-arabic-tweets-with-python/
