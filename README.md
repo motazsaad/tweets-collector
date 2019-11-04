@@ -4,7 +4,7 @@ Collect tweets (tweets corpus) using Twitter API.
 Collection can be based on hashtags, keywords, geographical location.
 
 ## install requirements 
-```pip install -r requirements```
+```pip install -r requirements.txt```
  
  
 ## Getting your API keys from Twitter
